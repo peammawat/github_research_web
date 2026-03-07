@@ -1,17 +1,43 @@
 import { NextRequest, NextResponse } from "next/server";
-import { searchRepositories } from "@/lib/github";
-import { analyzeRepos } from "@/lib/gemini";
+import { searchRepositories, getReadmeContent } from "@/lib/github";
 
 export async function POST(req: NextRequest) {
   try {
-    const { query, language, limit, minStars } = await req.json();
+    const { query, username, details = [], language, limit, minStars } = await req.json();
 
     if (!query) {
       return NextResponse.json({ error: "Query is required" }, { status: 400 });
     }
 
     // 1. Search GitHub
-    const repos = await searchRepositories(query, { language, limit, minStars });
+    const repos = await searchRepositories(query, { user: username, language, limit, minStars });
+
+    if (repos.length === 0) {
+      return NextResponse.json({ repos: [], analysis: "" });
+    }
+
+    // 2. Fetch Readmes and check details for the top results (limit to top 10 for performance)
+    const extraDetails = details.filter((d: string) => d.trim() !== "");
+    
+    if (extraDetails.length > 0) {
+      const reposWithChecks = await Promise.all(
+        repos.slice(0, 10).map(async (repo) => {
+          const readme = await getReadmeContent(repo.owner, repo.name);
+          const combinedText = `${repo.description || ""} ${readme}`.toLowerCase();
+          
+          const matchResults = extraDetails.map((detail: string) => ({
+            detail,
+            found: combinedText.includes(detail.toLowerCase())
+          }));
+
+          return { ...repo, matchDetails: matchResults };
+        })
+      );
+
+      // Replace the top results with checked ones, keep the rest as they are
+      const finalRepos = [...reposWithChecks, ...repos.slice(10)];
+      return NextResponse.json({ repos: finalRepos, analysis: "" });
+    }
 
     return NextResponse.json({ repos, analysis: "" });
   } catch (error: any) {
