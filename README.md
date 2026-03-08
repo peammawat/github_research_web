@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GitHub Research Pro 🚀
 
-## Getting Started
+ระบบค้นหาและตรวจสอบรายละเอียด GitHub Repository แบบเจาะลึก (Deep Search & Analysis) พัฒนาด้วย Next.js 15 และ Tailwind CSS v4
 
-First, run the development server:
+## ✨ ฟีเจอร์หลัก (Key Features)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **🔍 Smart Search:** ค้นหา Repository จาก GitHub REST API พร้อมระบบกรองภาษา (Language) และจำนวนดาว (Stars)
+- **🔎 Deep README Scan:** ระบบดึงไฟล์ `README.md` ของแต่ละโปรเจกต์มาสแกนหา Keyword ที่คุณต้องการโดยเฉพาะ (เช่น License, Specific Features, Tech Stack)
+- **🛠️ Tech Stack Selection:** เลือก Tech Stack ที่ต้องการ (React, Next.js, Docker, ฯลฯ) เพื่อให้ระบบตรวจสอบความถูกต้องในไฟล์ README อัตโนมัติ
+- **👤 User/Org Filter:** ระบุชื่อผู้ใช้หรือองค์กรเพื่อจำกัดขอบเขตการค้นหาให้แม่นยำขึ้น
+- **👥 Real-time Active Users:** แสดงจำนวนผู้ใช้งานที่กำลังออนไลน์อยู่บนเว็บไซต์ในขณะนั้น
+- **🌙 Modern Dark UI:** ดีไซน์โทนสีมืด (Slate-950) พร้อมเอฟเฟกต์ Glassmorphism และระบบ Badge สถานะ (✅/❌)
+- **⚡ High Performance:** พัฒนาด้วย Next.js 15 (App Router) และรันผ่าน systemd บน Production
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend:** Next.js 15, TypeScript, Tailwind CSS v4, Lucide React
+- **Backend:** Next.js Route Handlers (Node.js)
+- **API Integration:** GitHub REST API
+- **Icons:** Lucide React
+- **Deployment:** Apache Reverse Proxy + systemd
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 การติดตั้งและใช้งาน (Installation)
 
-## Learn More
+1. **Clone Repository:**
+   ```bash
+   git clone https://github.com/peammawat/github_research_web.git
+   cd github_research_web
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Environment Variables:**
+   สร้างไฟล์ `.env` และใส่ API Key ของคุณ:
+   ```env
+   GITHUB_TOKEN=your_github_personal_access_token
+   # (Optional) GEMINI_API_KEY=your_gemini_key_if_enabled
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. **Run Development:**
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+5. **Build for Production:**
+   ```bash
+   npm run build
+   npm start
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📝 วิธีการใช้งาน
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. กรอก **Keyword** หลักที่ต้องการค้นหา (เช่น `Discord Bot`)
+2. (ไม่บังคับ) ระบุ **GitHub Username** หากต้องการเจาะจงเจ้าของโปรเจกต์
+3. เลือก **Tech Stack** ที่ต้องการตรวจสอบ (เช่น `Node.js`, `Typescript`)
+4. เพิ่ม **รายละเอียดอื่นๆ** ที่ต้องการสแกนหาใน README (เช่น `PromptPay`, `MIT License`)
+5. กด **"ค้นหาและวิเคราะห์"** ระบบจะแสดงผลลัพธ์พร้อมสถานะการตรวจสอบ (✅ พบ / ❌ ไม่พบ) ในแต่ละหัวข้อ
+
+---
+พัฒนาโดย [Peammawat](https://github.com/peammawat)
