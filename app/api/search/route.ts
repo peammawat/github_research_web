@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { searchRepositories, getReadmeContent } from "@/lib/github";
+import { containsForbiddenKeywords } from "@/lib/security";
 
 export async function POST(req: NextRequest) {
   try {
@@ -7,6 +8,16 @@ export async function POST(req: NextRequest) {
 
     if (!query) {
       return NextResponse.json({ error: "Query is required" }, { status: 400 });
+    }
+
+    // Security Check: Forbidden Keywords
+    const allInputText = `${query} ${username || ""} ${details.join(" ")}`;
+    const forbiddenWord = containsForbiddenKeywords(allInputText);
+    if (forbiddenWord) {
+      return NextResponse.json(
+        { error: `การค้นหาของคุณถูกระงับเนื่องจากพบคำที่ไม่เหมาะสม: "${forbiddenWord}"` }, 
+        { status: 403 }
+      );
     }
 
     // 1. Search GitHub

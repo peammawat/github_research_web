@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { Search, Github, Star, Calendar, Loader2, AlertCircle, ExternalLink, Plus, Trash2, Users, CheckCircle2, XCircle, User, Code2, Layers } from 'lucide-react';
+import { containsForbiddenKeywords } from '@/lib/security';
 
 const TECH_STACKS = [
   { name: 'React', category: 'Frontend' },
@@ -80,6 +81,15 @@ export default function Home() {
     setIsLoading(true);
     setError(null);
     setResults(null);
+
+    // Client-side Security Check
+    const allInputText = `${query} ${username || ""} ${details.join(" ")}`;
+    const forbiddenWord = containsForbiddenKeywords(allInputText);
+    if (forbiddenWord) {
+      setError(`การค้นหาของคุณถูกระงับเนื่องจากพบคำที่ไม่เหมาะสม: "${forbiddenWord}"`);
+      setIsLoading(false);
+      return;
+    }
 
     // Combine main query with selected tech stacks for better GitHub results
     const fullQuery = [query, ...selectedStacks].join(' ');

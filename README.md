@@ -10,6 +10,7 @@
 - **👤 User/Org Filter:** ระบุชื่อผู้ใช้หรือองค์กรเพื่อจำกัดขอบเขตการค้นหาให้แม่นยำขึ้น
 - **👥 Real-time Active Users:** แสดงจำนวนผู้ใช้งานที่กำลังออนไลน์อยู่บนเว็บไซต์ในขณะนั้น
 - **🌙 Modern Dark UI:** ดีไซน์โทนสีมืด (Slate-950) พร้อมเอฟเฟกต์ Glassmorphism และระบบ Badge สถานะ (✅/❌)
+- **🛡️ Forbidden Keywords Filter:** ระบบกรองคำค้นหาที่ไม่เหมาะสม (18+, สิ่งผิดกฎหมาย, ความรุนแรง) เพื่อความปลอดภัยของระบบ
 - **⚡ High Performance:** พัฒนาด้วย Next.js 15 (App Router) และรันผ่าน systemd บน Production
 
 ## 🛠️ Tech Stack
